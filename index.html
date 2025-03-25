@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Markdown Embed</title>
     <style>
         body, html {
             margin: 0;
@@ -10,14 +11,26 @@
             height: 100%;
             overflow: hidden;
         }
-        iframe {
+        #markdown-content {
             width: 100%;
             height: 100%;
-            border: none;
+            padding: 20px;
+            box-sizing: border-box;
+            overflow-y: auto;
         }
     </style>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </head>
 <body>
-    <iframe src="https://raw.githubusercontent.com/DDCcarr1/docs/blob/main/index.md"></iframe>
+    <div id="markdown-content"></div>
+    <script>
+        async function fetchMarkdown(url) {
+            const response = await fetch(url);
+            const text = await response.text();
+            document.getElementById('markdown-content').innerHTML = marked(text);
+        }
+
+        fetchMarkdown('https://raw.githubusercontent.com/DDCcarr1/docs/refs/heads/main/index.md');
+    </script>
 </body>
 </html>
